@@ -12,7 +12,7 @@ class k_means:
         centroids = {}
 
         for i in range(k):
-            centroids[i] = data[np.random.randint(len(data))]
+            centroids[i] = data[i]
 
         classifications = {}
 
@@ -54,11 +54,15 @@ class k_means:
         classifications = list(classifications.values())
         return centroids, classifications
 
+    def predict(self, data, cent, classifs):
+        dists = [np.linalg.norm(data - cent[c]) for c in cent]
+        classif = dists.index(min(dists))
+        return classif
 
 
 # main
 
-data = pd.read_csv('/Users/diego/Desktop/Tarea4/datasets/blobs.csv')
+data = pd.read_csv('datasets/blobs.csv')
 X = data.to_numpy()
 
 k = 4
@@ -68,14 +72,18 @@ centroids, classifications = alg.fit(X, k, 150)
 print("CLASSIFICATIONS", classifications)
 print("CENTROIDS", centroids)
 
+colors = ['k', 'b', 'g', 'r']
+
 # plt.scatter(centroids, y=classifications)
 # plt.scatter()
 # plt.ylabel('some numbers')
 # plt.show()
 
-for i in range(k):
-    plt.scatter(X[True, 0], X[True, 1] , label = i)
-for c in centroids:
-    plt.scatter(centroids[c][0] , centroids[c][1] , s = 80, color = 'k')
-plt.legend()
+new_point = [-8, 2]
+cluster = alg.predict(new_point, centroids, classifications)
+plt.scatter(new_point[0], new_point[1], color = colors[cluster])
+
+for i, c in enumerate(centroids):
+    plt.scatter(centroids[c][0] , centroids[c][1] , s = 80, color = colors[i])
+
 plt.show()
