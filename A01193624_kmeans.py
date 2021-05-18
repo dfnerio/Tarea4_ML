@@ -98,45 +98,45 @@ for i, c in enumerate(centroids):
 plt.show()
 
 
-# # moons
+# moons
 
-# data = pd.read_csv('/Users/diego/Desktop/Tarea4/datasets/moons.csv')
-# X = data.to_numpy()
+data = pd.read_csv('/Users/diego/Desktop/Tarea4/datasets/moons.csv')
+X = data.to_numpy()
 
-# k = 2
-# alg = k_means()
-# centroids, classifications = alg.fit(X, k, 150)
+k = 2
+alg = k_means()
+centroids, classifications = alg.fit(X, k, 150)
 
-# colors = ['r', 'b']
+colors = ['r', 'b']
 
-# for cluster in range(k):
-#     for cl_i in range(len(classifications)):
-#         if classifications[cl_i] == cluster:
-#             plt.scatter(X[cl_i][0], X[cl_i][1], color=colors[cluster])
+for cluster in range(k):
+    for cl_i in range(len(classifications)):
+        if classifications[cl_i] == cluster:
+            plt.scatter(X[cl_i][0], X[cl_i][1], color=colors[cluster])
 
-# for i, c in enumerate(centroids):
-#     plt.scatter(centroids[c][0], centroids[c][1], s=80, color="black")
+for i, c in enumerate(centroids):
+    plt.scatter(centroids[c][0], centroids[c][1], s=80, color="black")
 
-# plt.show()
+plt.show()
 
 
-# # circles
+# circles
 
-# data = pd.read_csv('/Users/diego/Desktop/Tarea4/datasets/circles.csv')
-# X = data.to_numpy()
+data = pd.read_csv('/Users/diego/Desktop/Tarea4/datasets/circles.csv')
+X = data.to_numpy()
 
-# k = 2
-# alg = k_means()
-# centroids, classifications = alg.fit(X, k, 150)
+k = 2
+alg = k_means()
+centroids, classifications = alg.fit(X, k, 150)
 
-# colors = ['r', 'b']
+colors = ['r', 'b']
 
-# for cluster in range(k):
-#     for cl_i in range(len(classifications)):
-#         if classifications[cl_i] == cluster:
-#             plt.scatter(X[cl_i][0], X[cl_i][1], color=colors[cluster])
+for cluster in range(k):
+    for cl_i in range(len(classifications)):
+        if classifications[cl_i] == cluster:
+            plt.scatter(X[cl_i][0], X[cl_i][1], color=colors[cluster])
 
-# for i, c in enumerate(centroids):
-#     plt.scatter(centroids[c][0], centroids[c][1], s=80, color="black")
+for i, c in enumerate(centroids):
+    plt.scatter(centroids[c][0], centroids[c][1], s=80, color="black")
 
-# plt.show()
+plt.show()
