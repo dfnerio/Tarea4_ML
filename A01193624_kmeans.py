@@ -1,68 +1,71 @@
 
+# A01193624 Diego Frías Nerio
+# A01197164 Javier Alejandro Domene Reyes
+# Tarea 4 - KMeans
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
 class k_means:
+    classifications = {}
+    centroids = {}
+
     def __init__(self):
         super().__init__()
 
     def fit(self, data, k, max_iter):  # returns coordinates and a list of indexes
-        centroids = {}
 
         for i in range(k):
-            # initializes with random centroids
-            centroids[i] = data[np.random.randint(len(data))]
-
-        classifications = {}
+            # initialize with random centroids
+            self.centroids[i] = data[np.random.randint(len(data))]
 
         optimized = False
 
         for iteration in range(max_iter):
 
             for i in range(k):
-                classifications[i] = []
+                self.classifications[i] = [] # initialize each classification index with an empty array
 
             for i in range(len(data)):
                 distances = [pow(np.linalg.norm(
-                    data[i] - centroids[c]), 2) for c in centroids]
-                classifications[i] = distances.index(min(distances))
+                    data[i] - self.centroids[c]), 2) for c in self.centroids] # calculate distance for each example set and centroid
+                self.classifications[i] = distances.index(min(distances)) # add the cluster index of the minimum distance to the classifications object
 
-            current_centroids = centroids
+            current_centroids = self.centroids # create a copy of the current centroid for further checking
 
-            for centroid_i in range(len(centroids)):
+            for centroid_i in range(len(self.centroids)):
 
-                current = []
+                current = [] # array to keep track of sets in current cluster
 
-                for classification_i in range(len(classifications)):
-                    if classifications[classification_i] == centroid_i:
-                        current.append(data[classification_i])
+                for classification_i in range(len(self.classifications)):
+                    if self.classifications[classification_i] == centroid_i:
+                        current.append(data[classification_i]) # append corresponding set to current cluster array
 
                 current_centroid = current_centroids[centroid_i]
-                new_centroid = np.average(current, axis=0)
+                new_centroid = np.average(current, axis=0) # get new centroid by averaging the current array
 
-                if (set(current_centroid) == set(new_centroid)):
+                if (set(current_centroid) == set(new_centroid)): # if new centroid is equal to current centroid (1/3)
                     optimized = True
                     print('OPTIMIZED AT ITERATION: %s' % str(iteration + 1))
-                    break
+                    break # then the model is optimized and can stop (2/3)
 
-                centroids[centroid_i] = new_centroid
+                self.centroids[centroid_i] = new_centroid # if not, assign the new centroid and continue (3/3)
 
             if optimized:
                 break
 
-        classifications = list(classifications.values())
-        return centroids, classifications
+        self.classifications = list(self.classifications.values()) # transform the classifications dict into a list of its values
+        return self.centroids, self.classifications
 
-    def predict(self, data, cent, classifs):
+    def predict(self, data):
         classifications = {}
         for i in range(len(data)):
             classifications[i] = []
 
         for i in range(len(data)):
             distances = [pow(np.linalg.norm(
-                data[i] - centroids[c]), 2) for c in centroids]
+                data[i] - self.centroids[c]), 2) for c in self.centroids]
             classifications[i] = distances.index(min(distances))
 
         return list(classifications.values())
@@ -87,7 +90,7 @@ for cluster in range(k):
             plt.scatter(X[cl_i][0], X[cl_i][1], color=colors[cluster])
 
 new_points = [[8, -2], [-10, 4]]
-prediction = alg.predict(new_points, centroids, classifications)
+prediction = alg.predict(new_points)
 print("PREDICTIONS", prediction)
 for point_i in range(len(new_points)):
     plt.scatter(new_points[point_i][0], new_points[point_i][1], color=colors[prediction[point_i]])
