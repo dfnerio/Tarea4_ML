@@ -92,7 +92,7 @@ class k_means:
             # sets the cost in i + min_k so that we can use the keys and values as x and y
             costs[i + min_k] = self.cost(data)
 
-        plt.plot(list(costs.values()), list(costs.keys()))
+        plt.plot(list(costs.keys()), list(costs.values()))
         plt.show()
 
 # main
@@ -100,7 +100,7 @@ class k_means:
 # blobs
 
 
-data = pd.read_csv('/Users/diego/Desktop/Tarea4/datasets/blobs.csv')
+data = pd.read_csv('/datasets/blobs.csv')
 X = data.to_numpy()
 
 k = 3
@@ -126,9 +126,11 @@ for i, c in enumerate(centroids):
 
 plt.show()
 
+
 # elbow method with blobs
 
-# data = pd.read_csv('/Users/diego/Desktop/Tarea4/datasets/blobs.csv')
+
+# data = pd.read_csv('/datasets/blobs.csv')
 # X = data.to_numpy()
 
 # alg = k_means()
@@ -137,7 +139,8 @@ plt.show()
 
 # moons
 
-# data = pd.read_csv('/Users/diego/Desktop/Tarea4/datasets/moons.csv')
+
+# data = pd.read_csv('/datasets/moons.csv')
 # X = data.to_numpy()
 
 # k = 2
@@ -159,7 +162,8 @@ plt.show()
 
 # circles
 
-# data = pd.read_csv('/Users/diego/Desktop/Tarea4/datasets/circles.csv')
+
+# data = pd.read_csv('/datasets/circles.csv')
 # X = data.to_numpy()
 
 # k = 2
